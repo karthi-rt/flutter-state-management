@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:state_management/bloc/bloc_home.dart';
+import 'package:state_management/bloc/service/counter_bloc.dart';
 import 'package:state_management/provider/provider_home.dart';
 import 'package:state_management/provider/service/provider_screen.dart';
 import 'package:state_management/riverpod/riverpod_home.dart';
@@ -13,7 +16,28 @@ void main() {
   runApp(const MyApp());
 }
 
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider( //MultiBlocProvider
+      create: (context) => CounterBloc(),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter State Management',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          ),
+          home: const BlocHome(),
+        ),
+    );
+  }
+}
+
+
 // For Riverpod wrap MaterialApp with ProviderScope
+/*
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -31,6 +55,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+*/
+
 
 // For Provider wrap MaterialApp with ChangeNotifierProvider
 /*
